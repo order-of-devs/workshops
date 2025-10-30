@@ -1,0 +1,46 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "oskar_as_a_service"
+version = "0.0.1"
+description = "A short description of the project."
+authors = [
+  { name = "Order of Devs" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License"
+]
+dependencies = [
+    "deepeval>=3.6.9",
+    "loguru",
+    "marimo>=0.17.4",
+    "pandas>=2.3.3",
+    "pip",
+    "pytest",
+    "python-dotenv",
+    "ruff",
+    "torch>=2.9.0",
+    "tqdm",
+    "transformers>=4.57.1",
+    "typer",
+]
+requires-python = "~=3.13.0"
+
+
+[tool.ruff]
+line-length = 99
+src = ["oskar_as_a_service"]
+include = ["pyproject.toml", "oskar_as_a_service/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["oskar_as_a_service"]
+force-sort-within-sections = true
+
