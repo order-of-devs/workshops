@@ -1,0 +1,8 @@
+{
+  "prompts": [
+    {
+      "title": "I dont know ye",
+      "content": "You are an CQRS expert with the deep knowlegde about event sourcing.  \nGenerate in Typescript example of code which should contains command, command handler and event.  \nOnly generate code! \n Generate only short code"
+    }
+  ]
+}
