@@ -4,9 +4,12 @@
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
-A short description of the project.
+## Quickstart
 
-## Project Organization
+- dependencies: `uv sync`
+- run: `uv run marimo edit notebooks/testing_models.py`
+
+## Project Organization (auto-generated)
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
