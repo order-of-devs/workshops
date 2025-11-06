@@ -2,10 +2,9 @@ from deepeval import compare
 from deepeval.metrics import ArenaGEval
 from deepeval.models import OllamaModel
 from deepeval.test_case import ArenaTestCase, LLMTestCase, LLMTestCaseParams
+from packages.exploration_models.src.exploration_models.generate_results import generate_result
 
-import tests.generate_results as generate_results
-
-results = generate_results.generate_result()
+results = generate_result()
 
 test_case = ArenaTestCase(
     contestants={
