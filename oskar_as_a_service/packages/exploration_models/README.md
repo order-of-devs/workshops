@@ -1,0 +1,1 @@
+use FlowPHP\\DataFrame;\n\n$df = new DataFrame([\n    [\n        'Name' => 'John',\n        'Age' => 30,\n        'City' => 'New York'\n    ],\n    [\n        'Name' => 'Jane',\n        'Age' => 25,\n        'City' => 'Los Angeles'\n    ],\n    [\n        'Name' => 'Bob',\n        'Age' => 40,\n        'City' => 'Chicago'\n    ]\n
