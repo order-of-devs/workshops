@@ -46,16 +46,19 @@ test:
 	python -m pytest tests
 
 
-## Set up Python interpreter environment
-.PHONY: create_environment
-create_environment:
-	uv venv --python $(PYTHON_VERSION)
-	@echo ">>> New uv virtual environment created. Activate with:"
-	@echo ">>> Windows: .\\\\.venv\\\\Scripts\\\\activate"
-	@echo ">>> Unix/macOS: source ./.venv/bin/activate"
-
+.PHONY: pull_model
+pull_model:
+	ollama pull granite4
 
 
 .PHONE: build_rag
 build_rag:
-	uv run python pack
+	uv run packages/knowladge_base_rag/src/knowladge_base_rag/main.py
+
+.PHONE: run_flow_php_agent
+run_flow_php_agent:
+	uv run packages/flow-php-agent/src/flow_php_agent/main.py
+
+.PHONE: run_emmet_agent
+run_emmet_agent:
+	uv run packages/emmet_agent/src/emmet_agent/main.py
