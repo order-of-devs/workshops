@@ -1,0 +1,251 @@
+llm:
+  provider: "ollama"
+  model: "granite4"
+  temperature: 0.7
+  base_url: "http://localhost:11434/v1"
+
+topics:
+  prompt: "Building ETL pipelines using Flow PHP library - focus on Extractors, Transformers, Loaders, and flow operations like map, filter, join, aggregate"
+  mode: tree
+  depth: 3
+  degree: 3
+  save_as: "topics.jsonl"
+  llm:
+    model: "granite4"
+
+generation:
+  system_prompt: |
+    You are an expert PHP backend developer and technical educator specializing in Flow PHP.
+    
+    IMPORTANT GUIDELINES:
+    - This is PHP code - NEVER use Python terminology like "pydantic", "dataframe", "pandas", "merge", etc.
+    - Use Flow PHP terminology: Flow objects, Rows, Entries, Extractors, Transformers, Loaders
+    - For data operations use: join() (not merge), filter(), map(), flatMap(), aggregate()
+    - Always use proper PHP syntax with type hints (array, string, int, etc.)
+    - Use Flow PHP's row schema and entry types (Row, StringEntry, IntegerEntry, etc.)
+    - Repository: flow-php/flow - always use repo="flow-php/flow" when calling GitHub tools
+    
+    FLOW PHP CODE STRUCTURE - ALWAYS FOLLOW THIS PATTERN:
+    <?php
+    
+    declare(strict_types=1);
+    
+    use function Flow\ETL\DSL\{data_frame, from_array, to_stream};
+    use function Flow\ETL\Adapter\CSV\{from_csv, to_csv};
+    // Import other adapters and transformers as needed
+    
+    require __DIR__ . '/vendor/autoload.php';
+    
+    data_frame()
+        ->read(from_array([
+            ['id' => 1, 'name' => 'John'],
+            ['id' => 2, 'name' => 'Jane'],
+        ]))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    READING DATA EXAMPLES:
+    
+    1. From Array:
+    data_frame()
+        ->read(from_array([
+            ['id' => 1],
+            ['id' => 2],
+        ]))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    2. From CSV:
+    data_frame()
+        ->read(from_csv(
+            __DIR__ . '/input/dataset.csv',
+            with_header: true,
+            empty_to_null: true,
+            separator: ',',
+            enclosure: '"',
+            escape: '\\',
+            characters_read_in_line: 1000
+        ))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    FLOW PHP METHOD CHAIN PATTERN:
+    - Start with: data_frame()
+    - Read: ->read(from_*())
+    - Transform: ->rows(Transform::*()) or ->filter() or ->map()
+    - Aggregate: ->aggregate() or ->groupBy()
+    - Join: ->join() or ->joinEach()
+    - Collect: ->collect() (optional but recommended)
+    - Write: ->write(to_*())
+    - Execute: ->run()
+    
+    KEY CONCEPTS:
+    - DataFrame operations: Use data_frame() facade, NOT pandas DataFrame
+    - Data sources: from_array(), from_csv(), from_json(), from_parquet()
+    - Transformations: rows(), filter(), map(), flatMap()
+    - Joins: join(), joinEach(), joinAll() - NEVER use "merge"
+    - Aggregations: aggregate(), groupBy(), sum(), count(), avg()
+    - Output: to_stream(), to_csv(), to_json(), to_parquet()
+    
+    ALWAYS include:
+    - declare(strict_types=1);
+    - Proper use function imports
+    - require __DIR__ . '/vendor/autoload.php';
+    - Named parameters (PHP 8.0+ style)
+    - Error handling with try-catch where appropriate
+    - Type hints for callbacks
+
+  instructions: |
+    Create practical ETL pipeline examples using Flow PHP in PHP.
+    
+    REQUIRED CODE STRUCTURE:
+    1. Start with: declare(strict_types=1);
+    2. Import DSL functions: use function Flow\ETL\DSL\{...};
+    3. Require autoloader: require __DIR__ . '/vendor/autoload.php';
+    4. Use method chaining: data_frame()->read()->write()->run();
+    
+    EXAMPLES TO FOLLOW:
+    
+    Basic pipeline:
+    data_frame()
+        ->read(from_array([['id' => 1], ['id' => 2]]))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    CSV with configuration:
+    data_frame()
+        ->read(from_csv(
+            __DIR__ . '/input/dataset.csv',
+            with_header: true,
+            empty_to_null: true
+        ))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    Focus on real-world scenarios:
+    - Reading from various sources (CSV, JSON, Parquet, databases, APIs)
+    - Transforming data using Flow operations
+    - Joining multiple datasets using join() methods
+    - Aggregating and grouping data
+    - Writing to different destinations
+    
+    Use Flow PHP native methods and avoid any Python library concepts.
+    Show type-safe PHP code with proper error handling.
+
+  conversation:
+    type: chain_of_thought
+    reasoning_style: agent
+    agent_mode: single_turn
+
+  tools:
+    spin_endpoint: "http://localhost:3000"
+    available:
+      - gh_get_file_contents
+      - gh_search_code
+      - gh_search_repositories
+      - gh_list_issues
+      - gh_get_issue
+      - gh_list_pull_requests
+      - gh_get_pull_request
+      - gh_list_commits
+      - gh_get_commit
+      - gh_list_branches
+
+    max_per_query: 3
+    max_agent_steps: 5
+    max_retries: 3
+    sample_retries: 2
+    max_tokens: 3000  # Increased for complete examples
+
+  llm:
+    temperature: 0.3
+
+output:
+  system_prompt: |
+    You are a PHP programming expert specialized in Flow PHP ETL development.
+    
+    MANDATORY CODE STRUCTURE:
+    <?php
+    
+    declare(strict_types=1);
+    
+    use function Flow\ETL\DSL\{data_frame, from_array, to_stream};
+    // Add other imports as needed
+    
+    require __DIR__ . '/vendor/autoload.php';
+    
+    data_frame()
+        ->read(from_*())
+        ->collect()
+        ->write(to_*())
+        ->run();
+    
+    CRITICAL RULES:
+    - Write ONLY PHP code - no Python, no pandas, no pydantic concepts
+    - Always start with declare(strict_types=1);
+    - Use "use function" for DSL imports
+    - Include require __DIR__ . '/vendor/autoload.php';
+    - Use named parameters: from_csv($path, with_header: true)
+    - Chain methods: read()->collect()->write()->run()
+    - For combining data: use join() operations, NOT "merge"
+    
+    FLOW PHP DSL FUNCTIONS:
+    
+    Sources (from_*):
+    - from_array(array $data)
+    - from_csv(string $path, with_header: bool, empty_to_null: bool, separator: string, enclosure: string, escape: string)
+    - from_json(string $path)
+    - from_parquet(string $path)
+    
+    Destinations (to_*):
+    - to_stream(string $path, truncate: bool)
+    - to_csv(string $path)
+    - to_json(string $path)
+    - to_parquet(string $path)
+    
+    Transformations:
+    - ->rows(Transform::*)
+    - ->filter(callable $callback)
+    - ->map(callable $callback)
+    - ->flatMap(callable $callback)
+    
+    Joining (NOT merging):
+    - ->join($other, on: array)
+    - ->joinEach($other)
+    
+    Aggregation:
+    - ->aggregate(sum('column'), avg('column'), count())
+    - ->groupBy('column')
+    
+    EXAMPLE PATTERNS:
+    
+    1. Simple ETL:
+    data_frame()
+        ->read(from_array([['id' => 1], ['id' => 2]]))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    2. CSV Processing:
+    data_frame()
+        ->read(from_csv(
+            __DIR__ . '/input/dataset.csv',
+            with_header: true,
+            empty_to_null: true
+        ))
+        ->collect()
+        ->write(to_stream(__DIR__ . '/output.txt', truncate: false))
+        ->run();
+    
+    Provide clear explanations and production-ready code.
+    Use PHP 8.1+ features and proper type hints.
+
+  include_system_message: true
+  num_samples: 4
+  batch_size: 3
+  save_as: "flow-php-dataset.jsonl"

@@ -70,3 +70,7 @@ run_mlflow:
 .PHONE: register_prompt
 register_prompt:
 	uv run packages/registry_prompt/src/registry_prompt/main.py
+
+.PHONE: run_deepfabric
+run_deepfabric:
+	uv run deepfabric generate packages/dataloader/src/dataloader/flow_php_config.yaml --output-save-as flow-php-dataset.jsonl

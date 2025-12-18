@@ -40,6 +40,10 @@ dependencies = [
     "registry_prompt",
     "flow_php_agent",
     "smolagents[litellm,toolkit]>=1.23.0",
+    "deepfabric>=4.3.1",
+    "datasets>=4.3.0",
+    "unsloth[apple-silicon]>=2025.12.6",
+    "evaluate>=0.4.6",
 ]
 
 
@@ -66,9 +70,11 @@ members = [
     "packages/emmet_agent",
     "containers/packages/registry_prompt",
     "packages/registry_prompt",
+    "packages/dataloader",
 ]
 
 [tool.uv.sources]
 emmet_agent = {workspace = true }
 registry_prompt = {workspace = true }
 flow_php_agent = {workspace = true }
+dataloader = {workspace = true }
