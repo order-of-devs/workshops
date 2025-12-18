@@ -57,8 +57,16 @@ build_rag:
 
 .PHONE: run_flow_php_agent
 run_flow_php_agent:
-	uv run packages/flow-php-agent/src/flow_php_agent/main.py
+	uv run packages/flow_php_agent/src/flow_php_agent/main.py
 
 .PHONE: run_emmet_agent
 run_emmet_agent:
 	uv run packages/emmet_agent/src/emmet_agent/main.py
+
+.PHONE: run_mlflow
+run_mlflow:
+	docker compose containers/docker-compose.yml
+
+.PHONE: register_prompt
+register_prompt:
+	uv run packages/registry_prompt/src/registry_prompt/main.py

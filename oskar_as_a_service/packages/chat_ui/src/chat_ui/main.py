@@ -37,6 +37,7 @@ def handle_message(message, history):
     r =prompt.format(context=docs, user_input=message)
     response = get_llm().invoke([HumanMessage(content=r)])
     return response.content
+
 def create_chat_ui():
     with gr.Blocks(fill_height=True) as block:
         gr.ChatInterface(

@@ -36,6 +36,10 @@ dependencies = [
     "transformers>=4.57.1",
     "typer",
     "emmet_agent",
+    "mlflow>=3.6.0",
+    "registry_prompt",
+    "flow_php_agent",
+    "smolagents[litellm,toolkit]>=1.23.0",
 ]
 
 
@@ -58,9 +62,13 @@ members = [
     "packages/tunning_model",
     "packages/knowladge_base_rag",
     "packages/chat-ui",
-    "packages/flow-php-agent",
+    "packages/flow_php_agent",
     "packages/emmet_agent",
+    "containers/packages/registry_prompt",
+    "packages/registry_prompt",
 ]
 
 [tool.uv.sources]
 emmet_agent = {workspace = true }
+registry_prompt = {workspace = true }
+flow_php_agent = {workspace = true }
